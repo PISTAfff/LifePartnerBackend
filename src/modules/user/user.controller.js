@@ -15,3 +15,14 @@ export const addUser = async (req, res, next) => {
     next(error);
   }
 };
+export const getUser = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    if (!user) {
+      return next(new Error("User not found", 404));
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
