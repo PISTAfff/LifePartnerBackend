@@ -5,6 +5,6 @@ import { UserSchema,getUserSchema } from "./user.schema.js";
 import { validation } from "../../middleware/validation.middleware.js";
 let userRouter = Router();
 userRouter.get("/getAllUsers", asyncHandler(getAllUsers));
-userRouter.get("/getUser/:username", validation(getUserSchema), asyncHandler(getUser));
+userRouter.get("/getUser", validation(getUserSchema), asyncHandler(getUser));
 userRouter.post("/createUser", validation(UserSchema), asyncHandler(addUser));
 export default userRouter;
