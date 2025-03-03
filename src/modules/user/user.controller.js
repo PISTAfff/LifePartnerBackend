@@ -8,18 +8,16 @@ export const addUser = async (req, res, next) => {
     res.status(201).json(user);
 };
 export const getUser = async (req, res, next) => {
-  try {
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
       res.status(404).json("User not found");
     }else{
       if(user.password !== req.body.password){
-        res.status(401).json("Wrong password");
+        res.status(401).json("Wrong password");  
       }else{
         res.status(200).json(user);
+      
       }
     }
-  } catch (error) {
-    next(error);
-  }
+
 };
