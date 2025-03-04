@@ -23,7 +23,7 @@ export const getUser = async (req, res, next) => {
 export const sendCode = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
   sendEmail(user.email, "Verfication Code", "This is A Test");
-  res.status(201).json(user);
+  res.status(200).json(user);
 };
 async function sendEmail(to, subject, text) {
   let transporter = nodemailer.createTransport({
