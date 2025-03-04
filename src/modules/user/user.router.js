@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { asyncHandler } from "../../utils/asynchandler.js";
-import { getAllUsers, addUser,getUser } from "./user.controller.js";
-import { UserSchema,getUserSchema } from "./user.schema.js";
+import { getAllUsers, addUser, getUser,sendCode } from "./user.controller.js";
+import { UserSchema, getUserSchema, EmailSchema } from "./user.schema.js";
 import { validation } from "../../middleware/validation.middleware.js";
 let userRouter = Router();
 userRouter.get("/getAllUsers", asyncHandler(getAllUsers));
 userRouter.post("/getUser", validation(getUserSchema), asyncHandler(getUser));
 userRouter.post("/createUser", validation(UserSchema), asyncHandler(addUser));
+userRouter.post("/sendVerCode", validation(EmailSchema), asyncHandler(sendCode));
 export default userRouter;
