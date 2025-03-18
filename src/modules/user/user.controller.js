@@ -16,7 +16,7 @@ export const addUser = async (req, res, next) => {
 export const getUser = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
-    res.status(404).json("User not found");
+    res.status(404).json("Email not found");
   } else {
     if (user.password !== req.body.password) {
       res.status(401).json("Wrong password");
