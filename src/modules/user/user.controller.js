@@ -14,8 +14,7 @@ export const addUser = async (req, res, next) => {
     if (user) {
       res.status(400).json("User already exists");
     } else {
-      const salt = await bcrypt.genSalt(10);
-      req.body.password = await bcrypt.hash(req.body.password, salt);
+      req.body.password = await bcrypt.hash(req.body.password, 10);
       const user = await User.create(req.body);
       res.status(201).json(user);
     }
@@ -26,15 +25,17 @@ export const getUser = async (req, res, next) => {
   if (!user) {
     res.status(404).json("Email not found");
   } else {
-    const salt = await bcrypt.genSalt(10);
-    let password = await bcrypt.hash(req.body.password, salt);
-    if (user.password !== password) {
-      res.status(401).json("Wrong password");
-    } else {
-      res.status(200).json(user);
-    }
+    bcrypt.compare(req.body.password, user.password, (err, result) => {
+      if (err) {
+        return;
+      }
+       if (!result) {
+         res.status(401).json("Wrong password");
+       } else {
+         res.status(200).json(user);
+       }
+    });
   }
-
 };
 export const sendCode = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
