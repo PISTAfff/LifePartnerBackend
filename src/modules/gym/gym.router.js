@@ -5,6 +5,6 @@ import { GymSchema, getGymSchema } from "../gym/gym.schema.js";
 import { validation } from "../../middleware/validation.middleware.js";
 let gymRouter = Router();
 gymRouter.get("/getAllGyms", asyncHandler(getAllGyms));
-gymRouter.post("/getUser", validation(getGymSchema), asyncHandler(getGym));
+gymRouter.post("/getGym", validation(getGymSchema), asyncHandler(getGym));
 gymRouter.post("/addGym", validation(GymSchema), asyncHandler(addGym));
 export default gymRouter;
