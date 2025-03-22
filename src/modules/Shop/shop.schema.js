@@ -1,4 +1,4 @@
-export const StaffSchema = Joi.object({
+export const shopSchema = Joi.object({
     name : Joi.string().min(3).max(30).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(8).max(30).required(),
@@ -7,7 +7,7 @@ export const StaffSchema = Joi.object({
     gender: Joi.string().required(),
   });
   
-  export const getStaffSchema = Joi.object({
+  export const getshopSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(8).max(30).required(),
   });

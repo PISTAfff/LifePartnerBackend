@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const StaffSchema = new Schema({
+const shopSchema = new Schema({
     name : String,
     email: {type: String, unique: true},
     password: String,
@@ -8,4 +8,4 @@ const StaffSchema = new Schema({
     age: Number
 });
 
-export const Staff = model("Staff", StaffSchema);
+export const Shop = model("Shop", shopSchema);
