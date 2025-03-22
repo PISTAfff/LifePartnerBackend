@@ -23,11 +23,11 @@ export const getShop = async (req, res, next) => {
   if (!shop) {
     res.status(404).json("Email not found");
   } else {
-        bcrypt.compare(req.body.password, user.password, (err, result) => {
+        bcrypt.compare(req.body.password, shop.password, (err, result) => {
           if (err) {
             return;
           }
-    if (gym.password !== req.body.password) {
+    if (!result) {
       res.status(401).json("Wrong password");
     } else {
       res.status(200).json(shop);

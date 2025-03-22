@@ -2,7 +2,7 @@ import { dbConnect } from "./DB/connection.js";
 import userRouter from "./src/modules/user/user.router.js";
 import shopRouter from "./src/modules/Shop/shop.router.js";
 import gymRouter from "./src/modules/gym/gym.router.js";
-import coashRouter from "./src/modules/coash/coash.router.js";
+import coachRouter from "./src/modules/coach/coach.router.js";
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
@@ -14,7 +14,7 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/shop", shopRouter);
 app.use("/gym", gymRouter);
-app.use("/coash", coashRouter);
+app.use("/coach", coachRouter);
 
 await dbConnect();
 app.listen(port, () => console.log(`Server is running on port ${port}`));

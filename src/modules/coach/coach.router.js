@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { asyncHandler } from "../../utils/asynchandler.js";
+import { getAllCoach, addCoach, getCoach } from "./coach.controller.js";
+import { coachSchema, getcoachSchema } from "./coach.schema.js";
+import { validation } from "../../middleware/validation.middleware.js";
+let coachRouter = Router();
+coachRouter.get("/getAllCoach", asyncHandler(getAllCoach));
+coachRouter.post("/addCoach", validation(coachSchema), asyncHandler(addCoach));
+coachRouter.post("/getCoach", validation(getcoachSchema), asyncHandler(getCoach));
+export default coachRouter;

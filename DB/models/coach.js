@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const coashSchema = new Schema({
+const coachSchema = new Schema({
     name : String,
     email: {type: String, unique: true},
     password: String,
@@ -13,4 +13,4 @@ const coashSchema = new Schema({
       },
 });
 
-export const Coash = model("Coash", coashSchema);
+export const Coach = model("Coach", coachSchema);

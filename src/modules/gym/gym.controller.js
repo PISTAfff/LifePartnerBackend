@@ -23,11 +23,11 @@ export const getGym = async (req, res, next) => {
   if (!gym) {
     res.status(404).json("Email not found");
   } else {
-        bcrypt.compare(req.body.password, user.password, (err, result) => {
+        bcrypt.compare(req.body.password, gym.password, (err, result) => {
           if (err) {
             return;
           }
-    if (gym.password !== req.body.password) {
+    if (!result) {
       res.status(401).json("Wrong password");
     } else {
       res.status(200).json(gym);
