@@ -1,5 +1,8 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
 import { User } from "../../../DB/models/user.model.js";
+import bcrypt from "bcrypt";
 
 export const getAllUsers = async (req, res, next) => {
   const users = await User.find({});
@@ -11,21 +14,27 @@ export const addUser = async (req, res, next) => {
     if (user) {
       res.status(400).json("User already exists");
     } else {
+      const salt = await bcrypt.genSalt(process.env.salt_num);
+      req.body.password = await bcrypt.hash(req.body.password, salt);
       const user = await User.create(req.body);
       res.status(201).json(user);
     }
+
 };
 export const getUser = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
     res.status(404).json("Email not found");
   } else {
-    if (user.password !== req.body.password) {
+    const salt = await bcrypt.genSalt(process.env.salt_num);
+    let password = await bcrypt.hash(req.body.password, salt);
+    if (user.password !== password) {
       res.status(401).json("Wrong password");
     } else {
       res.status(200).json(user);
     }
   }
+
 };
 export const sendCode = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
