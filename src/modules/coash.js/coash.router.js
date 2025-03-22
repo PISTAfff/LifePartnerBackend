@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { asyncHandler } from "../../utils/asynchandler.js";
-import { getAllCoash, addCoash, getCoash } from "../coash/coash.controller.js";
-import { coashSchema, getcoashSchema } from "../coash/coash.schema.js";
+import { getAllCoash, addCoash, getCoash } from "./coash.controller.js";
+import { coashSchema, getcoashSchema } from "./coash.schema.js";
 import { validation } from "../../middleware/validation.middleware.js";
 let coashRouter = Router();
 coashRouter.get("/getAllCoash", asyncHandler(getAllCoash));
-coashRouter.post("/getCoash", validation(coashSchema), asyncHandler(addCoash));
-coashRouter.post("/addCoash", validation(getcoashSchema), asyncHandler(getCoash));
+coashRouter.post("/addCoash", validation(coashSchema), asyncHandler(addCoash));
+coashRouter.post("/getCoash", validation(getcoashSchema), asyncHandler(getCoash));
 export default coashRouter;

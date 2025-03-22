@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { asyncHandler } from "../../utils/asynchandler.js";
-import { getAllshop, addShop, getShop } from "../Shop/shop.controller.js";
-import { shopSchema, getshopSchema } from "../Shop/shop.schema.js";
+import { getAllshop, addShop, getShop } from "./shop.controller.js";
+import { shopSchema, getshopSchema } from "./shop.schema.js";
 import { validation } from "../../middleware/validation.middleware.js";
 let shopRouter = Router();
-shopRouter.get("/getAllstaff", asyncHandler(getAllshop));
-shopRouter.post("/getstaff", validation(shopSchema), asyncHandler(addShop));
-shopRouter.post("/addstaff", validation(getshopSchema), asyncHandler(getShop));
+shopRouter.get("/getAllshop", asyncHandler(getAllshop));
+shopRouter.post("/addshop", validation(shopSchema), asyncHandler(addShop));
+shopRouter.post("/getshop", validation(getshopSchema), asyncHandler(getShop));
 export default shopRouter;

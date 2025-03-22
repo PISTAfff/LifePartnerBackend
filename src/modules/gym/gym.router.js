@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { asyncHandler } from "../../utils/asynchandler.js";
-import { getAllGyms, addGym, getGym } from "../gym/gym.controller.js";
-import { GymSchema, getGymSchema } from "../gym/gym.schema.js";
+import { getAllGyms, addGym, getGym } from "./gym.controller.js";
+import { GymSchema, getGymSchema } from "./gym.schema.js";
 import { validation } from "../../middleware/validation.middleware.js";
 let gymRouter = Router();
 gymRouter.get("/getAllGyms", asyncHandler(getAllGyms));

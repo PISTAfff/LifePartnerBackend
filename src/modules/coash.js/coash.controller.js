@@ -9,7 +9,7 @@ export const getAllCoash = async (req, res, next) => {
 
 export const addCoash = async (req, res, next) => {
     const coash = await Coash.findOne({ email: req.body.email });
-    if (coashs) {
+    if (coash) {
       res.status(400).json("User already exists");
     } else {
     const salt = await bcrypt.genSalt(10);
