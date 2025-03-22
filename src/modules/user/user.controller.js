@@ -3,12 +3,11 @@ import dotenv from "dotenv";
 dotenv.config();
 import { User } from "../../../DB/models/user.model.js";
 import bcrypt from "bcrypt";
-
+import jwtDecode from "jwt-decode";
 export const getAllUsers = async (req, res, next) => {
   const users = await User.find({});
   res.status(200).json(users);
 };
-
 export const addUser = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -19,7 +18,6 @@ export const addUser = async (req, res, next) => {
       const user = await User.create(req.body);
       res.status(201).json(user);
     }
-
 };
 export const getUser = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
