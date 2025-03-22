@@ -14,8 +14,12 @@ export const addUser = async (req, res, next) => {
     if (user) {
       res.status(400).json("User already exists");
     } else {
+<<<<<<< HEAD
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
+=======
+      req.body.password = await bcrypt.hash(req.body.password, 10);
+>>>>>>> 79884227b1298b1a0590adf905d2d6a9a1e6292e
       const user = await User.create(req.body);
       res.status(201).json(user);
     }
@@ -26,6 +30,7 @@ export const getUser = async (req, res, next) => {
   if (!user) {
     res.status(404).json("Email not found");
   } else {
+<<<<<<< HEAD
     const salt = await bcrypt.genSalt(10);
     let password = await bcrypt.hash(req.body.password, salt)
 
@@ -34,8 +39,19 @@ export const getUser = async (req, res, next) => {
     } else {
       res.status(200).json(user);
     }
+=======
+    bcrypt.compare(req.body.password, user.password, (err, result) => {
+      if (err) {
+        return;
+      }
+       if (!result) {
+         res.status(401).json("Wrong password");
+       } else {
+         res.status(200).json(user);
+       }
+    });
+>>>>>>> 79884227b1298b1a0590adf905d2d6a9a1e6292e
   }
-
 };
 export const sendCode = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
