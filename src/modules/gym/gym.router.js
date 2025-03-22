@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { asyncHandler } from "../../utils/asynchandler.js";
-import { getAllGyms, addGym, getGym } from "./gym.controller.js";
-import { UserSchema, getUserSchema, EmailSchema } from "../user/user.schema.js";
+import { getAllGyms, addGym, getGym } from "../gym/gym.controller.js";
+import { GymSchema, getGymSchema } from "../gym/gym.schema.js";
 import { validation } from "../../middleware/validation.middleware.js";
 let gymRouter = Router();
 gymRouter.get("/getAllGyms", asyncHandler(getAllGyms));
-gymRouter.post("/getUser", validation(getUserSchema), asyncHandler(getGym));
-gymRouter.post("/addGym", validation(UserSchema), asyncHandler(addGym));
+gymRouter.post("/getUser", validation(getGymSchema), asyncHandler(getGym));
+gymRouter.post("/addGym", validation(GymSchema), asyncHandler(addGym));
 export default gymRouter;

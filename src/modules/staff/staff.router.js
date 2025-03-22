@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { asyncHandler } from "../../utils/asynchandler.js";
+import { getAllstaff, addstaff, getstaff } from "../gym/gym.controller.js";
+import { StaffSchema, getStaffSchema } from "../gym/gym.schema.js";
+import { validation } from "../../middleware/validation.middleware.js";
+let staffRouter = Router();
+staffRouter.get("/getAllGyms", asyncHandler(getAllstaff));
+staffRouter.post("/getUser", validation(StaffSchema), asyncHandler(getstaff));
+staffRouter.post("/addGym", validation(getStaffSchema), asyncHandler(addstaff));
+export default staffRouter;
