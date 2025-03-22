@@ -14,7 +14,7 @@ export const addUser = async (req, res, next) => {
     if (user) {
       res.status(400).json("User already exists");
     } else {
-      const salt = await bcrypt.genSalt(process.env.salt_num);
+      const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
       const user = await User.create(req.body);
       res.status(201).json(user);
@@ -26,7 +26,7 @@ export const getUser = async (req, res, next) => {
   if (!user) {
     res.status(404).json("Email not found");
   } else {
-    const salt = await bcrypt.genSalt(process.env.salt_num);
+    const salt = await bcrypt.genSalt(10);
     let password = await bcrypt.hash(req.body.password, salt);
     if (user.password !== password) {
       res.status(401).json("Wrong password");
