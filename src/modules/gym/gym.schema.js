@@ -3,7 +3,7 @@ import Joi from "joi";
 export const GymSchema = Joi.object({
     Name: Joi.string().min(1).max(50).required(),
     Address: Joi.array().items(Joi.string().min(1).required()).required(),
-    phone: Joi.string().min(3).max(30).required(),
+    phone: Joi.string().min(11).max(11).required(),
     email: Joi.string().email().required(),
     GymStuffShopLink: Joi.string().uri().optional(),
     website: Joi.string().uri().optional(),
