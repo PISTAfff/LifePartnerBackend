@@ -15,3 +15,4 @@ export const getUserSchema = Joi.object({
 export const EmailSchema = Joi.object({
   email: Joi.string().email().required()
 });
+

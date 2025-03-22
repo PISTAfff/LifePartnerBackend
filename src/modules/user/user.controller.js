@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { User } from "../../../DB/models/user.model.js";
+
 export const getAllUsers = async (req, res, next) => {
   const users = await User.find({});
   res.status(200).json(users);
