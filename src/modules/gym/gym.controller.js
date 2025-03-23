@@ -15,7 +15,10 @@ export const addGym = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
       const gym = await User.create(req.body);
-      res.status(201).json(gym);
+      const token = null
+      const {password , ...other} = gym._doc;
+
+      res.status(201).json({ ...other, token});
     }
 };
 export const getGym = async (req, res, next) => {
@@ -30,7 +33,9 @@ export const getGym = async (req, res, next) => {
     if (!result) {
       res.status(401).json("Wrong password");
     } else {
-      res.status(200).json(gym);
+      const token  = null ;
+      const {password, ...other} = gym._doc;
+      res.status(200).json({ ...other, token});
     }
   })
 }

@@ -2,6 +2,7 @@ import { Gym } from "../../DB/models/Gym.model";
 import { User } from "../../DB/models/user.model";
 import { Shop } from "../../DB/models/Shop.model";
 import { Coach } from "../../DB/models/coach.js";
+const {sendOTP , verifyOTP} = require("../utils/otp.js");
 import jwtDecode from "jwt-decode";
 
 export const checkEmailInModels = async (req, res, next) => {
@@ -51,3 +52,4 @@ export const changePassword = async (req, res, next) => {
   await record.save();
   res.status(200).json("Password Changed");
 };
+

@@ -15,7 +15,10 @@ export const addShop = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
       const shop = await Shop.create(req.body);
-      res.status(201).json(shop);
+      const token = null
+      const {password , ...other} = shop._doc;
+
+      res.status(201).json({ ...other, token});
     }
 };
 export const getShop = async (req, res, next) => {
@@ -30,7 +33,9 @@ export const getShop = async (req, res, next) => {
     if (!result) {
       res.status(401).json("Wrong password");
     } else {
-      res.status(200).json(shop);
+      const token  = null ;
+      const {password, ...other} = shop._doc;
+      res.status(200).json({ ...other, token});
     }
   })
 }

@@ -3,7 +3,12 @@ import dotenv from "dotenv";
 dotenv.config();
 import { User } from "../../../DB/models/user.model.js";
 import bcrypt from "bcrypt";
-import jwtDecode from "jwt-decode";
+
+const otpCache = {};
+
+function generateOTP() {
+  return randomstring.generate({length: 6, charset: 'numeric'});
+}
 export const getAllUsers = async (req, res, next) => {
   const users = await User.find({});
   res.status(200).json(users);
@@ -16,7 +21,9 @@ export const addUser = async (req, res, next) => {
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
       const user = await User.create(req.body);
-      res.status(201).json(user);
+      const token = null 
+      const {pasword , ...other} = user._doc; 
+      res.status(201).json({ ...other, token});
     }
 };
 export const getUser = async (req, res, next) => {
@@ -31,7 +38,9 @@ export const getUser = async (req, res, next) => {
        if (!result) {
          res.status(401).json("Wrong password");
        } else {
-         res.status(200).json(user);
+        const token  = null ;
+        const {password, ...other} = user._doc;
+         res.status(200).json({ ...other, token});
        }
     });
   }
@@ -54,7 +63,7 @@ async function sendEmail(to, subject, text) {
     from: "lifepartnerservicenctu@gmail.com",
     to: to,
     subject: subject,
-    text: text,
+    text: `Your Verification Code is ${otp}`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
@@ -66,3 +75,6 @@ async function sendEmail(to, subject, text) {
   });
 
 }
+
+
+
