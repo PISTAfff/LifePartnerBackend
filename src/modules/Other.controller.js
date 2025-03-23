@@ -2,7 +2,6 @@ import { Gym } from "../../DB/models/Gym.model";
 import { User } from "../../DB/models/user.model";
 import { Shop } from "../../DB/models/Shop.model";
 import { Coach } from "../../DB/models/coach.js";
-const {sendOTP , verifyOTP} = require("../utils/otp.js");
 import jwtDecode from "jwt-decode";
 
 export const checkEmailInModels = async (req, res, next) => {

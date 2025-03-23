@@ -3,12 +3,10 @@ import dotenv from "dotenv";
 dotenv.config();
 import { User } from "../../../DB/models/user.model.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import e from "cors";
+import { encodeXText } from "nodemailer/lib/shared/index.js";
 
-const otpCache = {};
-
-function generateOTP() {
-  return randomstring.generate({length: 6, charset: 'numeric'});
-}
 export const getAllUsers = async (req, res, next) => {
   const users = await User.find({});
   res.status(200).json(users);
@@ -21,8 +19,10 @@ export const addUser = async (req, res, next) => {
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
       const user = await User.create(req.body);
-      const token = null 
-      const {pasword , ...other} = user._doc; 
+      
+      const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
+        expiresIn: "1d"}) ;
+      const {password , ...other} = user._doc; 
       res.status(201).json({ ...other, token});
     }
 };
@@ -75,6 +75,25 @@ async function sendEmail(to, subject, text) {
   });
 
 }
+export const updateUser = async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email} );
+  if (!user) {
+    res.status(404).json({message: error.details[0].message});
+  }
+  if (req.body.password) {
+    const salt = await bcrypt.genSalt(10);
+    req.body.password = await bcrypt.hash(req.body.password, salt);
+  }
+
+  const updateUser = await User.findByIdAndUpdate(user._id,
+    { $set: req.body },
+    { new: true }
+  ).select("-password");
+  res.status(200).json(updateUser);
+};
+
+  
+  
 
 
 
