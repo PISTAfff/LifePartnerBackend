@@ -32,3 +32,22 @@ export const checkEmailFromToken = async (req, res, next) => {
   }
   res.status(200).json("Email is not in use");
 };
+export const changePassword = async (req, res, next) => {
+  const models = [Gym, User, Shop, Coach];
+  let record;
+  for (let model of models) {
+    record = await model.findOne({ email: req.body.email });
+    if (record) {
+      break;
+    }
+  }
+  if (!record) {
+    res.status(404).json("Email not found");
+    return;
+  }
+  const salt = await bcrypt.genSalt(10);
+  const password = await bcrypt.hash(req.body.password, salt);
+  record.password = password;
+  await record.save();
+  res.status(200).json("Password Changed");
+};
