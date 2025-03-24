@@ -3,28 +3,25 @@ import dotenv from "dotenv";
 dotenv.config();
 import { User } from "../../../DB/models/user.model.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import e from "cors";
-import { encodeXText } from "nodemailer/lib/shared/index.js";
 
 export const getAllUsers = async (req, res, next) => {
   const users = await User.find({});
   res.status(200).json(users);
 };
 export const addUser = async (req, res, next) => {
-    const user = await User.findOne({ email: req.body.email });
-    if (user) {
-      res.status(400).json("User already exists");
-    } else {
-      const salt = await bcrypt.genSalt(10);
-      req.body.password = await bcrypt.hash(req.body.password, salt);
-      const user = await User.create(req.body);
-      
-      const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
-        expiresIn: "1d"}) ;
-      const {password , ...other} = user._doc; 
-      res.status(201).json({ ...other, token});
-    }
+  const user = await User.findOne({ email: req.body.email });
+  if (user) {
+    res.status(400).json("User already exists");
+  } else {
+    const salt = await bcrypt.genSalt(10);
+    req.body.password = await bcrypt.hash(req.body.password, salt);
+    const user = await User.create(req.body);
+    res.status(201).json(user);
+  }
+};
+export const addUserWithGoogle = async (req, res, next) => {
+  console.log(req.header);
+  console.log(req.body);
 };
 export const getUser = async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
