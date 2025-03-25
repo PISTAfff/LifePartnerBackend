@@ -1,11 +1,12 @@
 import { Schema, model } from "mongoose";
 
 const shopSchema = new Schema({
-    name : String,
-    email: {type: String, unique: true},
-    password: String,
-    phone: String,
-    age: Number
+  name: String,
+  address: [String],
+  email: { type: String, unique: true },
+  password: String,
+  phone: String,
+  verified: { type: Boolean, default: false },
 });
 
 export const Shop = model("Shop", shopSchema);

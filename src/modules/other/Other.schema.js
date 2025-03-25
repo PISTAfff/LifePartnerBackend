@@ -1,10 +1,8 @@
 import Joi from "joi";
-export const emailExistsWithEmailSchema = Joi.object({
+export const EmailandPasswordSchema = Joi.object({
   email: Joi.string().email().required(),
+  password: Joi.string().min(8).max(30).required(),
 });
-export const emailExistsWithTokenSchema = Joi.object({
-  token: Joi.string().required(),
-});
-export const changePasswordSchema = Joi.object({
-  email: Joi.string().email().required(),
+export const EmailSchema = Joi.object({
+  email: Joi.string().email().required()
 });

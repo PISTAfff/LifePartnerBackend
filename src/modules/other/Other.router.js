@@ -5,12 +5,32 @@ import {
   checkEmailInModels,
   checkEmailFromToken,
   changePassword,
+  sendCode,
+  loginWithGoogle,
+  login,
 } from "./Other.controller.js";
-let userRouter = Router();
-userRouter.post(
-  "/checkEmailToken",
-  validation(),
-  asyncHandler(checkEmailFromToken)
+import { EmailSchema, EmailandPasswordSchema } from "./Other.schema.js";
+let otherRouter = Router();
+otherRouter.get("/checkEmailToken", asyncHandler(checkEmailFromToken));
+otherRouter.post(
+  "/checkEmail",
+  validation(EmailSchema),
+  asyncHandler(checkEmailInModels)
 );
-userRouter.post("/checkEmail", validation(), asyncHandler(checkEmailInModels));
-userRouter.post("/changePassword", validation(), asyncHandler(changePassword));
+otherRouter.post(
+  "/changePassword",
+  validation(EmailSchema),
+  asyncHandler(changePassword)
+);
+otherRouter.post(
+  "/sendVerCode",
+  validation(EmailSchema),
+  asyncHandler(sendCode)
+);
+otherRouter.get("/loginWithGoogle", asyncHandler(loginWithGoogle));
+otherRouter.post(
+  "/login",
+  validation(EmailandPasswordSchema),
+  asyncHandler(login)
+);
+export default otherRouter;

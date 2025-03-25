@@ -1,17 +1,18 @@
 import { Schema, model } from "mongoose";
 
 const GymSchema = new Schema({
-  Name: String,
-  Address: [String],
+  name: String,
+  address: [String],
   phone: String,
   email: { type: String, unique: true },
-  GymStuffShopLink: String,
+  gymStuffShopLink: String,
   website: String,
   workingHours: {
     start: String,
     end: String,},
   images: [String],
   password: String,
+  verified: { type: Boolean, default: false },
 });
 
 export const Gym = model("Gym", GymSchema);

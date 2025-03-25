@@ -3,6 +3,7 @@ import userRouter from "./src/modules/user/user.router.js";
 import shopRouter from "./src/modules/Shop/shop.router.js";
 import gymRouter from "./src/modules/gym/gym.router.js";
 import coachRouter from "./src/modules/coach/coach.router.js";
+import otherRouter from "./src/modules/other/Other.router.js";
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
@@ -15,6 +16,7 @@ app.use("/user", userRouter);
 app.use("/shop", shopRouter);
 app.use("/gym", gymRouter);
 app.use("/coach", coachRouter);
+app.use("/other", otherRouter);
 
 await dbConnect();
 app.listen(port, () => console.log(`Server is running on port ${port}`));
