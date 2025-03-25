@@ -8,12 +8,17 @@ import {
   sendCode,
   loginWithGoogle,
   login,
-  checkCode
+  checkCode,
+  verifyAccount,
+  getAllUnverifiedEmails,
+  loginAdmin,
+  deleteAccount
 } from "./Other.controller.js";
 import {
   EmailSchema,
   EmailandPasswordSchema,
   CodeSchema,
+  UserNameandPasswordSchema,
 } from "./Other.schema.js";
 let otherRouter = Router();
 otherRouter.get("/checkEmailToken", asyncHandler(checkEmailFromToken));
@@ -27,16 +32,29 @@ otherRouter.post(
   validation(EmailandPasswordSchema),
   asyncHandler(changePassword)
 );
-otherRouter.post(
-  "/sendCode",
-  validation(EmailSchema),
-  asyncHandler(sendCode)
-);
+otherRouter.post("/sendCode", validation(EmailSchema), asyncHandler(sendCode));
 otherRouter.get("/loginWithGoogle", asyncHandler(loginWithGoogle));
 otherRouter.post(
   "/login",
   validation(EmailandPasswordSchema),
   asyncHandler(login)
 );
+otherRouter.post(
+  "/verifyAccount",
+  validation(EmailSchema),
+  asyncHandler(verifyAccount)
+);
+otherRouter.post(
+  "/deleteAccount",
+  validation(EmailSchema),
+  asyncHandler(deleteAccount)
+);
+otherRouter.post(
+  "/loginAdmin",
+  validation(UserNameandPasswordSchema),
+  asyncHandler(loginAdmin)
+);
+
+otherRouter.get("/getAllUnverifiedEmails", asyncHandler(getAllUnverifiedEmails));
 otherRouter.post("/checkCode", validation(CodeSchema), asyncHandler(checkCode));
 export default otherRouter;

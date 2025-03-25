@@ -16,7 +16,7 @@ export const addGym = async (req, res, next) => {
   } else {
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
-    const gym = await User.create(req.body);
+    const gym = await Gym.create(req.body);
     const { password, ...other } = gym._doc;
     res.status(201).json(other);
   }
