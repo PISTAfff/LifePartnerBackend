@@ -47,16 +47,56 @@ export const changePassword = async (req, res, next) => {
   const salt = await bcrypt.genSalt(10);
   const password = await bcrypt.hash(req.body.password, salt);
   record.password = password;
+  record.code = "";
   await record.save();
+  
   res.status(200).json("Password Changed");
 };
-
+export const checkCode = async (req, res, next) => {
+  let record;
+  const models = [Gym, User, Shop, Coach];
+  for (let model of models) {
+    record = await model.findOne({ email: req.body.email });
+    if (record) {
+      break;
+    }
+  }
+  if (!record) {
+    res.status(404).json("Email not found");
+    return;
+  }
+  if (record.code === req.body.code) {
+    record.verified = true;
+    await record.save();
+    res.status(200).json("Verified");
+  } else {
+    res.status(200).json("Invalid Code");
+  }
+}
 export const sendCode = async (req, res, next) => {
-  const user = await User.findOne({ email: req.body.email });
-  sendEmail(user.email, "Verfication Code", "This is A Test2");
-  res.status(200).json(user);
+  let record;
+  const models = [Gym, User, Shop, Coach];
+  for (let model of models) {
+    record = await model.findOne({ email: req.body.email });
+    if (record) {
+      break;
+    }
+  }
+  if (!record) {
+    res.status(404).json("Email not found");
+    return;
+  }
+  if (record.password != null) {
+    const otp = Math.random().toString(36).substring(2, 8).toUpperCase();
+    record.code = otp;
+    await record.save();
+    sendEmail(record.email, "Verfication Code", otp);
+    res.status(200).json("Code Sent");
+  } else {
+    res.status(400).json("Cant Send Code To That email");
+  }
 };
-async function sendEmail(to, subject, text) {
+async function sendEmail(to, subject, otp) {
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -92,8 +132,17 @@ export const login = async (req, res, next) => {
        if (!result) {
          res.status(401).json("Wrong password");
        } else {
-         const { password, ...other } = record._doc;
-         res.status(200).json({userType: model[0],...other});
+        if (model[0] === "user") {
+          const { code, password, ...other } = record._doc;
+          res.status(200).json({ userType: model[0], ...other });
+        } else {
+          const { code,password, ...other } = record._doc;
+          if (other.verified) {
+            res.status(200).json({ userType: model[0], ...other });
+          } else {
+            res.status(401).json("Account not verified");
+          }
+        }
        }
      });
     }
@@ -113,8 +162,17 @@ export const loginWithGoogle = async (req, res, next) => {
   for (let model of models) {
         const record = await model[1].findOne({ email: decoded.email });
     if (record) {
-      const { password, ...other } = record._doc;
-         res.status(200).json({ userType: model[0], ...other });
+      if(model[0] === "user"){
+        const { code, password, ...other } = record._doc;
+        res.status(200).json({ userType: model[0], ...other });
+      } else {
+        const { code, password, ...other } = record._doc;
+        if (other.verified) {
+          res.status(200).json({ userType: model[0], ...other });
+        } else {
+          res.status(401).json("Account not verified");
+        }
+      }
       return;
     }
   }

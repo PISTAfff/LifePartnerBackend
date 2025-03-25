@@ -6,3 +6,7 @@ export const EmailandPasswordSchema = Joi.object({
 export const EmailSchema = Joi.object({
   email: Joi.string().email().required()
 });
+export const CodeSchema = Joi.object({
+  email: Joi.string().email().required(),
+  code: Joi.string().required()
+})

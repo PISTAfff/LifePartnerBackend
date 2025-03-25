@@ -12,6 +12,7 @@ const userSchema = new Schema({
     enum: ["male", "female", "dumbell"],
     default: "male",
   },
+  code: String,
 });
 
 export const User = model("User", userSchema);

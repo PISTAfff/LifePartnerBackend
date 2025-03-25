@@ -8,8 +8,13 @@ import {
   sendCode,
   loginWithGoogle,
   login,
+  checkCode
 } from "./Other.controller.js";
-import { EmailSchema, EmailandPasswordSchema } from "./Other.schema.js";
+import {
+  EmailSchema,
+  EmailandPasswordSchema,
+  CodeSchema,
+} from "./Other.schema.js";
 let otherRouter = Router();
 otherRouter.get("/checkEmailToken", asyncHandler(checkEmailFromToken));
 otherRouter.post(
@@ -19,11 +24,11 @@ otherRouter.post(
 );
 otherRouter.post(
   "/changePassword",
-  validation(EmailSchema),
+  validation(EmailandPasswordSchema),
   asyncHandler(changePassword)
 );
 otherRouter.post(
-  "/sendVerCode",
+  "/sendCode",
   validation(EmailSchema),
   asyncHandler(sendCode)
 );
@@ -33,4 +38,5 @@ otherRouter.post(
   validation(EmailandPasswordSchema),
   asyncHandler(login)
 );
+otherRouter.post("/checkCode", validation(CodeSchema), asyncHandler(checkCode));
 export default otherRouter;

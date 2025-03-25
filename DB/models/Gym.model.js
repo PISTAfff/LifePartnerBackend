@@ -9,10 +9,12 @@ const GymSchema = new Schema({
   website: String,
   workingHours: {
     start: String,
-    end: String,},
+    end: String,
+  },
   images: [String],
   password: String,
   verified: { type: Boolean, default: false },
+  code: String,
 });
 
 export const Gym = model("Gym", GymSchema);

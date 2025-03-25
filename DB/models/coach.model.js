@@ -12,6 +12,7 @@ const coachSchema = new Schema({
     default: "male",
   },
   verified: { type: Boolean, default: false },
+  code: String,
 });
 
 export const Coach = model("Coach", coachSchema);

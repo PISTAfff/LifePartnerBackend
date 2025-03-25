@@ -7,6 +7,7 @@ const shopSchema = new Schema({
   password: String,
   phone: String,
   verified: { type: Boolean, default: false },
+  code: String,
 });
 
 export const Shop = model("Shop", shopSchema);
