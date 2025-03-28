@@ -12,7 +12,6 @@ export const addUser = async (req, res, next) => {
   if (user) {
     res.status(400).json("User already exists");
   } else {
-
     bcrypt.compare(req.body.password, user.password, (err, result) => {
       if (err) {
         return;
@@ -63,7 +62,6 @@ export const updateUser = async (req, res, next) => {
     res.status(404).json({message: error.details[0].message});
   }
   if (req.body.password) {m 
->>>>>>> Stashed changes
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
     const user = await User.create(req.body);
