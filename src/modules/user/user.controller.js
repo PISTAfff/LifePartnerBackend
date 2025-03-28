@@ -12,8 +12,7 @@ export const addUser = async (req, res, next) => {
   if (user) {
     res.status(400).json("User already exists");
   } else {
-<<<<<<< Updated upstream
-=======
+
     bcrypt.compare(req.body.password, user.password, (err, result) => {
       if (err) {
         return;
