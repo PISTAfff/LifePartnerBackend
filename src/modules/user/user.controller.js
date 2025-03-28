@@ -61,7 +61,7 @@ export const updateUser = async (req, res, next) => {
   if (!user) {
     res.status(404).json({message: error.details[0].message});
   }
-  if (req.body.password) {m 
+  if (req.body.password) {
     const salt = await bcrypt.genSalt(10);
     req.body.password = await bcrypt.hash(req.body.password, salt);
     const user = await User.create(req.body);
