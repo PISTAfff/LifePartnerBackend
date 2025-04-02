@@ -8,4 +8,4 @@ const postSchema = new Schema ({
   dislikes: { type: Number, default: 0 }
 }, { timestamps: true });
 
-export const Post = new model('Post', postSchema);
+export const Post = model('Post', postSchema);

@@ -1,4 +1,4 @@
-import {Comment} from "../../../DB/models/community/comment.model.js"
+import {Comment} from "../../../../DB/models/community/comment.model.js"
 import dotenv from "dotenv";
 dotenv.config();
 import { commentSchema } from "./comment.schema.js";

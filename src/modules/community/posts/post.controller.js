@@ -1,4 +1,4 @@
-import {Post} from "../../../DB/models/community/post.model.js"
+import { Post } from "../../../../DB/models/community/post.model.js"
 import dotenv from "dotenv";
 dotenv.config();
 import { postSchema } from "./post.schema.js";
