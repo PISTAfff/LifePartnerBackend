@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import cors from "cors";
+import mealRouter from "./src/modules/meal/meal.router.js";
 const port = process.env.PORT;
 const app = express();
 app.use(cors());
@@ -17,6 +18,7 @@ app.use("/shop", shopRouter);
 app.use("/gym", gymRouter);
 app.use("/coach", coachRouter);
 app.use("/other", otherRouter);
-
+app.use("/meal", mealRouter);
+app.use("*", (req, res) => res.status(404).json("Route not found"));
 await dbConnect();
 app.listen(port, () => console.log(`Server is running on port ${port}`));
