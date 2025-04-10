@@ -12,6 +12,18 @@ export const getAllMeals = async (req, res, next) => {
   const meals = await Meal.find({});
   res.status(200).json(meals);
 };
+export const deleteMealByName = async (req, res, next) => {
+  const { name } = req.body;
+  try {
+    const meal = await Meal.findOneAndDelete({ name });
+    if (!meal) {
+      return res.status(404).json("Meal not found");
+    }
+    res.status(200).json("Meal deleted successfully");
+  } catch (err) {
+    return res.status(500).json({ message: "Error deleting meal", error: err.message });
+  }
+};
 
 export const addMeal = async (req, res, next) => {
   const existingMeal = await Meal.findOne({ name: req.body.name });
