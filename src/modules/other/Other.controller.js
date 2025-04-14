@@ -5,6 +5,7 @@ import { Coach } from "../../../DB/models/coach.model.js";
 import { jwtDecode } from "jwt-decode";
 import nodemailer from "nodemailer";
 import bcrypt from "bcrypt";
+import { newsLetter } from "../../../DB/models/newsletterEmail.model.js";
 
 export const checkEmailInModels = async (req, res, next) => {
   const models = [Gym, User, Shop, Coach];
@@ -238,7 +239,14 @@ export const deleteAccount = async (req, res, next) => {
   }
   res.status(200).json("Account Deleted");
 };
-
+export const addEmailToNewsletter = async (req, res, next) => {
+  const email = await newsLetter.findOne({ email: req.body.email });
+  if (email) {
+    return res.status(400).json("Email already exists");
+  }
+  await newsLetter.create({ email: req.body.email });
+  res.status(200).json("Email added to newsletter");
+};
 export const loginAdmin = async (req, res, next) => {
   const username = "admin";
   const password = "admin";

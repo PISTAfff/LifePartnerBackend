@@ -7,6 +7,7 @@ export const shopSchema = Joi.object({
   phone: Joi.string().min(11).max(11).required(),
 });
 export const shopWithGoogleSchema = Joi.object({
+
   name: Joi.string().min(1).max(50).required(),
   address: Joi.array().items(Joi.string().min(1).required()).required(),
   phone: Joi.string().min(11).max(11).required(),

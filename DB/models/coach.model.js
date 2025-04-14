@@ -12,6 +12,7 @@ const coachSchema = new Schema({
     default: "male",
   },
   verified: { type: Boolean, default: false },
+  profileImg: String,
   code: String,
 });
 

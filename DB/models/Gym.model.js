@@ -12,6 +12,8 @@ const GymSchema = new Schema({
     end: String,
   },
   images: [String],
+  profileImg: String,
+
   password: String,
   verified: { type: Boolean, default: false },
   code: String,

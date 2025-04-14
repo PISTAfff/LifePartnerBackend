@@ -8,9 +8,10 @@ export const coachSchema = Joi.object({
   age: Joi.number().required(),
   gender: Joi.string().required(),
 });
-  export const coachSchemaWithGoogle = Joi.object({
-    phone: Joi.string().min(3).max(30).required(),
-    age: Joi.number().required(),
-    gender: Joi.string().required(),
-  });
+export const coachSchemaWithGoogle = Joi.object({
+
+  phone: Joi.string().min(3).max(30).required(),
+  age: Joi.number().required(),
+  gender: Joi.string().required(),
+});
   

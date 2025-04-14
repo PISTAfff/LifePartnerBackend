@@ -13,6 +13,7 @@ export const GymSchema = Joi.object({
 });
 export const GymSchemaWithGoogle = Joi.object({
   name: Joi.string().min(1).max(50).required(),
+
   address: Joi.array().items(Joi.string().min(1).required()).required(),
   phone: Joi.string().min(11).max(11).required(),
   workingHours: Joi.object({

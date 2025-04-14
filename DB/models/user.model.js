@@ -7,6 +7,8 @@ const userSchema = new Schema({
   password: String,
   phone: String,
   age: Number,
+  profileImg: String,
+
   gender: {
     type: String,
     enum: ["male", "female", "dumbell"],

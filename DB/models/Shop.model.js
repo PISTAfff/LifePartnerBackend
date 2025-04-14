@@ -6,6 +6,8 @@ const shopSchema = new Schema({
   email: { type: String, unique: true },
   password: String,
   phone: String,
+  profileImg: String,
+
   verified: { type: Boolean, default: false },
   code: String,
 });

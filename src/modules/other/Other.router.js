@@ -12,7 +12,8 @@ import {
   verifyAccount,
   getAllUnverifiedEmails,
   loginAdmin,
-  deleteAccount
+  deleteAccount,
+  addEmailToNewsletter
 } from "./Other.controller.js";
 import {
   EmailSchema,
@@ -32,6 +33,7 @@ otherRouter.post(
   validation(EmailandPasswordSchema),
   asyncHandler(changePassword)
 );
+otherRouter.post("/addToNewsletter", validation(EmailSchema), asyncHandler(addEmailToNewsletter));
 otherRouter.post("/sendCode", validation(EmailSchema), asyncHandler(sendCode));
 otherRouter.get("/loginWithGoogle", asyncHandler(loginWithGoogle));
 otherRouter.post(
