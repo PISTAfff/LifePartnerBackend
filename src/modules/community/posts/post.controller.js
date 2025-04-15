@@ -16,6 +16,22 @@ export const reportPost = async (req, res) => {
     res.status(500).json(error);
   }
 }
+export const getAllReportedPosts=async(req,res)=>{
+  try {
+    const posts=await Post.find({reported:true}).sort({createdAt:-1});
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+export const deletePost = async (req, res) => {
+  try {
+    await Post.findByIdAndDelete(req.body.postId);
+    res.status(200).json("Post Deleted");
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
 export const getAllposts = async (req, res) => {
   try {
     const posts = await Post.find({}).sort({ createdAt: -1 });
