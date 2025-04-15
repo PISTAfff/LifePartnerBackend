@@ -6,8 +6,11 @@ import { jwtDecode } from "jwt-decode";
 import cloudinary from "cloudinary";
 
 export const getAllGyms = async (req, res, next) => {
-  const Gyms = await Gym.find({});
-  res.status(200).json(Gyms);
+    const limit = req.body.limit ? req.body.limit : null;
+    const gyms = await Gym.find({ verified: true })
+      .limit(limit)
+      .select("name profileImg");
+    res.status(200).json(gyms);
 };
 
 export const addGym = async (req, res, next) => {

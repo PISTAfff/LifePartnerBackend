@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 let shopRouter = Router();
-shopRouter.get("/getAllshop", asyncHandler(getAllshop));
+shopRouter.post("/getAllShops", asyncHandler(getAllshop));
 shopRouter.post("/addShop", upload.single("profileImg"), validation(shopSchema), asyncHandler(addShop));
 shopRouter.post(
   "/addShopWithGoogle",

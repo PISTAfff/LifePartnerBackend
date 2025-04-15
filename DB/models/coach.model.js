@@ -1,7 +1,8 @@
 import { Schema, model } from "mongoose";
 
 const coachSchema = new Schema({
-  name: String,
+  firstName: String,
+  lastName: String,
   email: { type: String, unique: true },
   password: String,
   phone: String,

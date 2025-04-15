@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 let gymRouter = Router();
-gymRouter.get("/getAllGyms", asyncHandler(getAllGyms));
+gymRouter.post("/getAllGyms", asyncHandler(getAllGyms));
 gymRouter.post(
   "/addGym",
   upload.single("profileImg"),

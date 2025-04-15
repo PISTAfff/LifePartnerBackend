@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 let coachRouter = Router();
-coachRouter.get("/getAllCoach", asyncHandler(getAllCoach));
+coachRouter.post("/getAllCoaches", asyncHandler(getAllCoach));
 coachRouter.post(
   "/addCoach",
   upload.single("profileImg"),

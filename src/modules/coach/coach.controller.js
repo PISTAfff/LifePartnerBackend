@@ -6,7 +6,10 @@ import { jwtDecode } from "jwt-decode";
 import cloudinary from "cloudinary";
 
 export const getAllCoach = async (req, res, next) => {
-  const coachs = await Coach.find({});
+  const limit = req.body.limit ? req.body.limit : null;
+  const coachs = await Coach.find({ verified: true })
+    .limit(limit)
+    .select("firstName profileImg");
   res.status(200).json(coachs);
 };
 

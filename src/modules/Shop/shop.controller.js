@@ -6,7 +6,8 @@ import { jwtDecode } from "jwt-decode";
 import cloudinary from "cloudinary";
 
 export const getAllshop = async (req, res, next) => {
-  const shops = await Shop.find({});
+  const limit = req.body.limit ? req.body.limit : null;
+  const shops = await Shop.find({ verified: true }).limit(limit).select('name profileImg');
   res.status(200).json(shops);
 };
 
