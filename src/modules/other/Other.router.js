@@ -56,6 +56,7 @@ otherRouter.post(
   validation(UserNameandPasswordSchema),
   asyncHandler(loginAdmin)
 );
+otherRouter.get("/uptime", (req, res) => res.status(200).json("OK"));
 
 otherRouter.get("/getAllUnverifiedEmails", asyncHandler(getAllUnverifiedEmails));
 otherRouter.post("/checkCode", validation(CodeSchema), asyncHandler(checkCode));
