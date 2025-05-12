@@ -100,13 +100,13 @@ async function sendEmail(to, subject, otp) {
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "lifepartnerservicenctu@gmail.com",
-      pass: "iwrq yywj mlvk xhtl",
+      user: "gymmifynewcairo@gmail.com",
+      pass: "idkr ytvo aiyu fats",
     },
   });
 
   let mailOptions = {
-    from: "lifepartnerservicenctu@gmail.com",
+    from: "gymmifynewcairo@gmail.com",
     to: to,
     subject: subject,
     text: `Your Verification Code is ${otp}`,
