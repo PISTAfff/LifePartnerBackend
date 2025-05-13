@@ -32,9 +32,10 @@ ExcersiceRouter.post(
 ExcersiceRouter.get("/getAllExcersices", asyncHandler(getAllExcersises));
 ExcersiceRouter.post(
   "/addExcersice",
-  upload.single("img"),
+  upload.fields([{ name: "img", maxCount: 1 }, { name: "video", maxCount: 1 }]),
   validation(ExcersiceSchema),
   asyncHandler(addExcersice)
 );
 
 export default ExcersiceRouter;
+

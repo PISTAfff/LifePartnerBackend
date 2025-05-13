@@ -2,10 +2,12 @@ import { Schema, model } from "mongoose";
 
 const ExcersiceSchema = new Schema({
   name: String,
-  howto: String,
+  desc: String,
+  proTip: String,
   img: String,
+  video: String,
   category: [String],
-  howTo: String,
+  instructions: [String],
 });
 
 export const Excersice = model("Excersice", ExcersiceSchema);

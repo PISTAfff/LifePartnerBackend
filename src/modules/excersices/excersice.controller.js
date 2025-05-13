@@ -31,23 +31,33 @@ export const addExcersice = async (req, res, next) => {
   if (existingExcersice) {
     return res.status(400).json("Excersice with this name already exists");
   }
-  if (!req.file) {
-    return res.status(400).json("Image file is required");
+  if (!req.files || !req.files.img || !req.files.video) {
+    return res.status(400).json("Image and video files are required");
   }
   try {
-    const image = await cloudinary.uploader.upload(req.file.path);
+    const image = await cloudinary.uploader.upload(req.files.img[0].path);
+    const video = await cloudinary.v2.uploader.upload(req.files.video[0].path, {
+      resource_type: "video",
+    });
     const category = req.body.category.includes(",")
       ? req.body.category.split(",")
       : [req.body.category];
+      const instructions = req.body.instructions.includes(",")
+        ? req.body.instructions.split(",")
+        : [req.body.instructions];
     const meal = await Excersice.create({
       ...req.body,
       category,
+      instructions,
       img: image.secure_url,
+      video: video.secure_url,
     });
     res.status(201).json(meal);
   } catch (err) {
+    console.log(err);
     return res
       .status(500)
-      .json({ message: "Error uploading image", error: err.message });
+      .json({ message: "Error uploading image or video", error: err.message });
   }
 };
+
