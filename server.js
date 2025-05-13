@@ -10,7 +10,7 @@ import express from "express";
 import cors from "cors";
 import mealRouter from "./src/modules/meal/meal.router.js";
 import postRouter from "./src/modules/community/posts/post.router.js";
-import ExcersiceRouter from "./src/modules/excersices/Excersice.router.js";
+import ExcersiceRouter from "./src/modules/excersices/excersice.router.js";
 const port = process.env.PORT;
 const app = express();
 app.use(cors());
