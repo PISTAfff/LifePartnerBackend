@@ -1,5 +1,5 @@
 import cloudinary from "cloudinary";
-import { Excersice } from "../../../DB/models/excersice.model.js";
+import { Excersice } from "../../../DB/models/exercise.model";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
